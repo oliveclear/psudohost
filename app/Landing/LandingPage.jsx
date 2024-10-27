@@ -57,11 +57,11 @@ const LandingPage = () => {
           </button>
         </div>
       </header>
-      <div style={styles.content}>z
+      <div style={styles.content}>
         <img
           src="/icons kit/logo final.png"
           alt="logo"
-          style={{ width: "1255px", height: "312px" }}
+          style={{ width: "1255px", height: "276px" }}
         />
 
           <h2 style={styles.tagline2}>revitalize your care for skin</h2>

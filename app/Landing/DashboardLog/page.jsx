@@ -178,31 +178,6 @@ const DashboardLog = () => {
 
         {/* Chart JS */}
         <div style={{margin: "20px",padding: "20px", borderRadius: '28px', background: '#171717', boxShadow: 'inset -20px -16px 12.7px 0px rgba(16, 16, 16, 0.48)'}}>
-          {/* <Link href="/Chart">
-            <h1
-              style={{
-                paddingLeft: "20px",
-                position: "relative",
-                color: "#ffffff", // Default color
-                fontFamily: "Outfit",
-                fontSize: "30px",
-                fontWeight: 600,
-                lineHeight: "39px",
-                letterSpacing: "-2.4px",
-                transition: "color 0.3s ease, text-decoration 0.3s ease", // Smooth transition for both color and underline
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.color = "#CEDF9F"; // Change color on hover
-                e.target.style.textDecoration = "underline"; // Add underline on hover
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.color = "#ffffff"; // Revert color when hover ends
-                e.target.style.textDecoration = "none"; // Remove underline when hover ends
-              }}
-            >
-              Track Your Progress
-            </h1>
-          </Link> */}
           <div
             style={{
               display: "flex",
