@@ -1,47 +1,66 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Istok_Web } from 'next/font/google';
-import Cookies from "js-cookie"; // Import js-cookie
-const token = Cookies.get("token");
-
+import { Istok_Web } from "next/font/google";
+import Cookies from "js-cookie";
 
 const istokweb = Istok_Web({
-  weight: ['400', '700'],
-  subsets: ['latin'],
+  weight: ["400", "700"],
+  subsets: ["latin"],
 });
 
 const DiscussionRoom = () => {
-  // State for posts
+  const [isMobile, setIsMobile] = useState(false);
   const [posts, setPosts] = useState([]);
+  const token = Cookies.get("token");
 
-  // Fetch posts from backend
+  // Handle screen resizing for mobile responsiveness
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize); // Add event listener
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Cleanup listener
+    };
+  }, []);
+
+  // Fetch posts from the backend
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_URL_HOST}/discuss/get-message`,{
+          `${process.env.NEXT_PUBLIC_URL_HOST}/discuss/get-message`,
+          {
             headers: {
-              "Authorization":`Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         const data = await response.json();
-        setPosts(data.messages);
+        setPosts(data.messages || []);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [token]);
 
   return (
-    <div style={styles.container}>
+    <div
+      style={{
+        ...styles.container,
+        marginLeft: isMobile ? "0px" : "250px",
+        // marginTop: isMobile ? "0px" : "88px",
+      }}
+    >
       {/* Header Section */}
       <div style={styles.header}>
         <h1 style={styles.title}>Discussion Room</h1>
-
         <Link href="/DiscussionPost" passHref>
           <button style={styles.newPostButton}>+</button>
         </Link>
@@ -80,16 +99,17 @@ const DiscussionRoom = () => {
 
 const styles = {
   container: {
+    zIndex: "-1",
     position: "relative",
-    marginLeft: "250px",
-    marginTop: "87px",
     backgroundColor: "#1a1a1a",
     color: "#ffffff",
     padding: "20px",
-    height: "90vh",
+    height: "100vh",
     fontFamily: "Outfit",
     display: "flex",
     flexDirection: "column",
+    marginTop: "84px",
+    marginLeft: "250px"
   },
   header: {
     display: "flex",
@@ -102,7 +122,7 @@ const styles = {
     fontWeight: "bold",
     margin: "0",
     fontFamily: istokweb.style.fontFamily,
-    letterSpacing: "-1.9px", // Adjust letter spacing here
+    letterSpacing: "-1.9px",
   },
   newPostButton: {
     backgroundColor: "#CEDF9F",
@@ -116,7 +136,6 @@ const styles = {
   },
   postsContainer: {
     flex: 1,
-    paddingRight: "1px",
     fontFamily: istokweb.style.fontFamily,
     paddingTop: "3px",
   },
@@ -147,17 +166,16 @@ const styles = {
   },
   content: {
     margin: 0,
-    fontSize: "36px",
-    fontFamily: istokweb.style.fontFamily,
     fontSize: "13px",
     fontStyle: "normal",
     fontWeight: "400",
     lineHeight: "normal",
+    fontFamily: istokweb.style.fontFamily,
   },
   voteSection: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "right",
+    alignItems: "center",
     marginLeft: "20px",
   },
   voteCount: {
@@ -169,17 +187,14 @@ const styles = {
     color: "#fff",
     fontSize: "14px",
     cursor: "pointer",
-    marginBottom: "5px",
     border: "2px solid #EBEBEB",
     borderRadius: "14px",
-    alignItems: "center",
     marginRight: "5px",
     marginLeft: "5px",
   },
   line: {
     backgroundColor: "#FFFFFF1A",
-    padding: "1px",
-    borderRadius: "2px",
+    height: "1px",
     marginBottom: "2px",
   },
 };

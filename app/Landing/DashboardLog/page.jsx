@@ -78,7 +78,6 @@ const DashboardLog = () => {
       marginTop: "88px",
       marginLeft: "250px", // Removed margin left for mobile
       height: "100vh",
-
       backgroundColor: "#1C1C1C",
       // width: "100%", // Set to full width for responsiveness
       marginLeft: isMobile ? "0px" : "250px",

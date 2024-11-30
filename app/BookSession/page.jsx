@@ -179,7 +179,7 @@ const BookSession = () => {
         marginLeft: "250px",
         position: "relative",
         top: "84px",
-        overflow: "scroll",
+        // overflow: "scroll",
         backgroundColor: "#000",
         zIndex: "-1",
         marginLeft: isMobile ? "0px" : "250px",
