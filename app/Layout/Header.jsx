@@ -32,7 +32,7 @@ const Header = () => {
       // width: screenWidth > 768 ? "100%": "82%",
       // gap: screenWidth > 768 ? "0px" : "40px",
       backgroundColor: "#1A1A1A",
-      zIndex: "1000",
+      zIndex: "1",
     },
     ordersInfo: {
       display: "flex",

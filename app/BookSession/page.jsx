@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const style = {
   container: {
@@ -56,7 +58,20 @@ const style = {
     marginBottom: "8px",
   },
 };
+// const [isMobile, setIsMobile] = useState(false);
 
+// useEffect(() => {
+//   const handleResize = () => {
+//     setIsMobile(window.innerWidth <= 768); // Adjust for mobile screen width
+//   };
+
+//   // Initial check and adding a resize listener
+//   handleResize();
+//   window.addEventListener("resize", handleResize);
+
+//   // Cleanup listener on component unmount
+//   return () => window.removeEventListener("resize", handleResize);
+// }, []);
 const DoctorCard = ({ doctor }) => (
   <div style={style.card}>
     <img src={doctor.image} alt={doctor.name} style={style.doctorImage} />
@@ -141,8 +156,36 @@ const doctorsData = [
 ];
 
 const BookSession = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust for mobile screen width
+    };
+
+    // Initial check and adding a resize listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
-    <div style = {{display: "flex", scrollBehavior: "smooth",flexDirection: "column",marginLeft: "250px",position: "relative", top: "94px", overflow: "scroll",backgroundColor: "#000", zIndex: "-1px" }}>
+    <div
+      style={{
+        display: "flex",
+        scrollBehavior: "smooth",
+        flexDirection: "column",
+        marginLeft: "250px",
+        position: "relative",
+        top: "84px",
+        overflow: "scroll",
+        backgroundColor: "#000",
+        zIndex: "-1",
+        marginLeft: isMobile ? "0px" : "250px",
+        marginTop: isMobile ? "0px" : "84px",
+      }}
+    >
       <h2
         style={{
           color: "#EBEBEB",

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Line } from "react-chartjs-2";
+import { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -57,20 +58,39 @@ const lineOptions = {
 };
 
 const DashboardLog = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust for mobile screen width
+    };
+
+    // Initial check and adding a resize listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const styles = {
     dashboardContainer: {
       marginTop: "88px",
       marginLeft: "250px", // Removed margin left for mobile
       height: "100vh",
+
       backgroundColor: "#1C1C1C",
       // width: "100%", // Set to full width for responsiveness
+      marginLeft: isMobile ? "0px" : "250px",
+      marginTop: isMobile ? "0px" : "88px",
     },
     cardsContainer: {
-      padding: '16px',
+      padding: "16px",
       display: "grid",
       gridTemplateColumns: "repeat(4, 1fr)",
       gap: "20px",
       marginBottom: "20px",
+      
     },
     card: {
       height: "150px",
@@ -137,6 +157,7 @@ const DashboardLog = () => {
                 backgroundImage: "url('/icons kit/facescan.png')",
                 backgroundSize: "cover",
                 backgroundPosition: "-5px -83px",
+                backgroundPosition: isMobile ? "0px 0px" : "-5px -83px",
               }}
             >
               <div style={styles.cardText}></div>
@@ -149,6 +170,7 @@ const DashboardLog = () => {
                 backgroundImage: "url('/icons kit/answer.png')",
                 backgroundSize: "cover",
                 backgroundPosition: "-5px -83px",
+                backgroundPosition: isMobile ? "0px 0px" : "-5px -83px",
               }}
             >
               <div style={styles.cardText}></div>
@@ -161,6 +183,7 @@ const DashboardLog = () => {
                 backgroundImage: "url('/icons kit/discover.png')",
                 backgroundSize: "cover",
                 backgroundPosition: "-5px -83px",
+                backgroundPosition: isMobile ? "0px 0px" : "-5px -83px",
               }}
             >
               <div style={styles.cardText}></div>
@@ -172,45 +195,55 @@ const DashboardLog = () => {
               backgroundImage: "url('/icons kit/bookyourskin.png')",
               backgroundSize: "cover",
               backgroundPosition: "-5px -83px",
+              backgroundPosition: isMobile ? "0px 0px" : "-5px -83px",
             }}
           />
         </div>
 
         {/* Chart JS */}
-        <div style={{margin: "20px",padding: "20px", borderRadius: '28px', background: '#171717', boxShadow: 'inset -20px -16px 12.7px 0px rgba(16, 16, 16, 0.48)'}}>
+        <div
+          style={{
+            margin: "20px",
+            padding: "20px",
+            borderRadius: "28px",
+            background: "#171717",
+            boxShadow: "inset -20px -16px 12.7px 0px rgba(16, 16, 16, 0.48)",
+          }}
+        >
           <div
             style={{
               display: "flex",
-              justifyContent: "center",
+              // justifyContent: "center",
               flexWrap: "wrap",
             }}
           >
             <Link href="/Chart">
-            <h1
-              style={{
-                left: '-450px',
-                paddingLeft: "20px",
-                position: "relative",
-                color: "#ffffff", // Default color
-                fontFamily: "Outfit",
-                fontSize: "30px",
-                fontWeight: 600,
-                lineHeight: "39px",
-                letterSpacing: "-2.4px",
-                transition: "color 0.3s ease, text-decoration 0.3s ease", // Smooth transition for both color and underline
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.color = "#CEDF9F"; // Change color on hover
-                e.target.style.textDecoration = "underline"; // Add underline on hover
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.color = "#ffffff"; // Revert color when hover ends
-                e.target.style.textDecoration = "none"; // Remove underline when hover ends
-              }}
-            >
-              Track Your Progress
-            </h1>
-          </Link>
+              <h1
+                style={{
+                  // left: "-450px",
+                  // marginLeft: "250px",
+                  paddingLeft: "20px",
+                  // position: "relative",
+                  color: "#ffffff", // Default color
+                  fontFamily: "Outfit",
+                  fontSize: "30px",
+                  fontWeight: 600,
+                  lineHeight: "39px",
+                  letterSpacing: "-2.4px",
+                  transition: "color 0.3s ease, text-decoration 0.3s ease", // Smooth transition for both color and underline
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "#CEDF9F"; // Change color on hover
+                  e.target.style.textDecoration = "underline"; // Add underline on hover
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "#ffffff"; // Revert color when hover ends
+                  e.target.style.textDecoration = "none"; // Remove underline when hover ends
+                }}
+              >
+                Track Your Progress
+              </h1>
+            </Link>
             <div
               style={{
                 display: "flex",
@@ -297,3 +330,6 @@ const DashboardLog = () => {
 };
 
 export default DashboardLog;
+
+//margin-top: 88px;
+//margin-left: 250px;
