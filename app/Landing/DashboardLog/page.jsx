@@ -58,11 +58,13 @@ const lineOptions = {
 };
 
 const DashboardLog = () => {
+  const [isScreen, setIsScreen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Adjust for mobile screen width
+      setIsScreen(window.innerWidth <= 768); // Adjust for Screen screen width
+      setIsMobile(window.innerWidth <= 430);
     };
 
     // Initial check and adding a resize listener
@@ -76,12 +78,12 @@ const DashboardLog = () => {
   const styles = {
     dashboardContainer: {
       marginTop: "88px",
-      marginLeft: "250px", // Removed margin left for mobile
+      marginLeft: "250px", // Removed margin left for Screen
       height: "100vh",
       backgroundColor: "#1C1C1C",
       // width: "100%", // Set to full width for responsiveness
-      marginLeft: isMobile ? "0px" : "250px",
-      marginTop: isMobile ? "0px" : "88px",
+      marginLeft: isScreen ? "0px" : "250px",
+      marginTop: isScreen ? "0px" : "88px",
     },
     cardsContainer: {
       padding: "16px",
@@ -89,7 +91,7 @@ const DashboardLog = () => {
       gridTemplateColumns: "repeat(4, 1fr)",
       gap: "20px",
       marginBottom: "20px",
-      
+      gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
     },
     card: {
       height: "150px",
@@ -156,7 +158,8 @@ const DashboardLog = () => {
                 backgroundImage: "url('/icons kit/facescan.png')",
                 backgroundSize: "cover",
                 backgroundPosition: "-5px -83px",
-                backgroundPosition: isMobile ? "0px 0px" : "-5px -83px",
+                backgroundPosition: isScreen ? "-5px -83px" : "0px 0px",
+                backgroundPosition: isMobile ? "-3px -30px" : "0px 0px",
               }}
             >
               <div style={styles.cardText}></div>
@@ -169,7 +172,8 @@ const DashboardLog = () => {
                 backgroundImage: "url('/icons kit/answer.png')",
                 backgroundSize: "cover",
                 backgroundPosition: "-5px -83px",
-                backgroundPosition: isMobile ? "0px 0px" : "-5px -83px",
+                backgroundPosition: isScreen ? "-5px -83px" : "0px 0px",
+                backgroundPosition: isMobile ? "-3px -30px" : "0px 0px",
               }}
             >
               <div style={styles.cardText}></div>
@@ -182,7 +186,8 @@ const DashboardLog = () => {
                 backgroundImage: "url('/icons kit/discover.png')",
                 backgroundSize: "cover",
                 backgroundPosition: "-5px -83px",
-                backgroundPosition: isMobile ? "0px 0px" : "-5px -83px",
+                backgroundPosition: isScreen ? "-5px -83px" : "0px 0px",
+                backgroundPosition: isMobile ? "-3px -30px" : "0px 0px",
               }}
             >
               <div style={styles.cardText}></div>
@@ -194,7 +199,8 @@ const DashboardLog = () => {
               backgroundImage: "url('/icons kit/bookyourskin.png')",
               backgroundSize: "cover",
               backgroundPosition: "-5px -83px",
-              backgroundPosition: isMobile ? "0px 0px" : "-5px -83px",
+              backgroundPosition: isScreen ? "-5px -83px" : "0px 0px",
+              backgroundPosition: isMobile ? "-3px -30px" : "0px 0px",
             }}
           />
         </div>
@@ -212,7 +218,6 @@ const DashboardLog = () => {
           <div
             style={{
               display: "flex",
-              // justifyContent: "center",
               flexWrap: "wrap",
             }}
           >
@@ -256,15 +261,29 @@ const DashboardLog = () => {
                 borderRadius: "12px",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Optional: Adds depth
                 margin: "1rem 0", // Optional: Adds space between elements
+                display: isMobile ? "" : "flex",
+                padding: isMobile ? "1.5rem" : "2rem",
               }}
             >
               {/* Line Chart */}
-              <div style={{ width: "60%" }}>
+              <div
+                style={{
+                  width: "60%",
+                  width: isMobile ? "100%" : "60%",
+                  height: isMobile ? "15vh" : "",
+                }}
+              >
                 <Line data={lineData} options={lineOptions} />
               </div>
 
               {/* Circular Progress Indicator */}
-              <div style={{ width: "30%", textAlign: "center" }}>
+              <div
+                style={{
+                  width: "30%",
+                  textAlign: "center",
+                  display: isMobile ? "none" : "",
+                }}
+              >
                 <div
                   style={{
                     position: "relative",
