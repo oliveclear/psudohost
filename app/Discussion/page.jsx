@@ -11,6 +11,7 @@ const istokweb = Istok_Web({
 
 const DiscussionRoom = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [isScreen, setIsScreen] = useState(false);
   const [posts, setPosts] = useState([]);
   const token = Cookies.get("token");
 
@@ -54,6 +55,8 @@ const DiscussionRoom = () => {
     <div
       style={{
         ...styles.container,
+        zIndex: isScreen ? "0" : "-1",
+        // height: isScreen ? "0" : "100vh",
         marginLeft: isMobile ? "0px" : "250px",
         // marginTop: isMobile ? "0px" : "88px",
       }}
@@ -99,17 +102,15 @@ const DiscussionRoom = () => {
 
 const styles = {
   container: {
-    zIndex: "-1",
     position: "relative",
     backgroundColor: "#1a1a1a",
     color: "#ffffff",
     padding: "20px",
-    height: "100vh",
     fontFamily: "Outfit",
     display: "flex",
     flexDirection: "column",
     marginTop: "84px",
-    marginLeft: "250px"
+    marginLeft: "250px",
   },
   header: {
     display: "flex",

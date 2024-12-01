@@ -1,8 +1,26 @@
-'use client';
+"use client";
 import React from "react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const MeetingSchedule = () => {
+  const [isScreen, setIsScreen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreen(window.innerWidth <= 768); // Adjust for Screen screen width
+      setIsMobile(window.innerWidth <= 430);
+    };
+
+    // Initial check and adding a resize listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Schedule data
   const scheduleData = [
     {
@@ -28,12 +46,15 @@ const MeetingSchedule = () => {
     container: {
       position: "relative",
       marginLeft: "250px",
-      top: "88px",
+      top: "84px",
       padding: "20px",
       backgroundColor: "#1D1D1D",
       color: "#EBEBEB",
       fontFamily: "Arial, sans-serif",
       height: "100vh",
+      marginLeft: isScreen ? "0px" : "250px",
+      marginTop: isScreen ? "0px" : "84px",
+      zIndex: isScreen ? "-1" : "",
     },
     monthTitle: {
       fontSize: "2em",

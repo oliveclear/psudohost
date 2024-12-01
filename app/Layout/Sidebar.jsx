@@ -330,7 +330,7 @@ const Sidebar = () => {
     <div>
       {window.innerWidth <= 768 && (
         <button style={styles.toggleButton} onClick={toggleSidebar}>
-          ☰ SkinKare
+          ☰ 
         </button>
       )}
 
@@ -485,8 +485,8 @@ const styles = {
     position: "fixed",
     // left: "10px",
     // top: "10px",
-    zIndex: 1000,
-    width: "140px",
+    zIndex: "2",
+    width: "40px",
     height: "84px",
     fontSize: "21px",
     fontWeight: "bold",

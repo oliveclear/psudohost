@@ -13,91 +13,134 @@ const Header = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const [isScreen, setIsScreen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreen(window.innerWidth <= 768); // Adjust for Screen screen width
+      setIsMobile(window.innerWidth <= 430);
+    };
+
+    // Initial check and adding a resize listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Apply styles based on screen width
   const styles = {
     headerContainer: {
+      height: "84px",
       position: "fixed",
       top: "0",
-      left: screenWidth > 1200 ? "250px" : screenWidth > 768 ? "250px" : "140px",
+      left: isMobile ? "40px" : screenWidth > 1200 ? "250px" : isScreen ? "250px" : "140px",
       width:
-        screenWidth > 1200
+        isMobile
+          ? "91%"
+          : screenWidth > 1200
           ? "calc(100% - 250px)"
-          : screenWidth > 768
+          : isScreen
           ? "calc(100% - 250px)"
+          : screenWidth > 430
+          ? "91%"
           : "82%",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: screenWidth > 768 ? "20px" : "15px",
-      // width: screenWidth > 768 ? "100%": "82%",
-      // gap: screenWidth > 768 ? "0px" : "40px",
+      padding: isScreen ? "20px" : "15px",
       backgroundColor: "#1A1A1A",
       zIndex: "1",
     },
+
     ordersInfo: {
       display: "flex",
       alignItems: "center",
       color: "#CEDF9F",
-      // flexDirection: screenWidth > 768 ? "row" : "column",
-      // alignItems: screenWidth > 768 ? "center" : "flex-start",
+      display: isScreen ? "none" : "flex",
     },
     ordersNumber: {
-      fontSize: screenWidth > 768 ? "32px" : "24px",
+      fontSize: isScreen ? "32px" : "24px",
       fontWeight: "bold",
       marginRight: "10px",
     },
     ordersText: {
-      fontSize: screenWidth > 768 ? "18px" : "16px",
+      fontSize: isScreen ? "18px" : "16px",
       marginRight: "5px",
     },
     ordersSubText: {
-      fontSize: screenWidth > 768 ? "14px" : "12px",
+      fontSize: isScreen ? "14px" : "12px",
       color: "#A1A1A1",
     },
     toggleButtons: {
+      marginLeft: isMobile ? "75px" : "0px",
       display: "flex",
       alignItems: "center",
       borderRadius: "20px",
       padding: "2px",
       border: "3px solid #CEDF9F",
-      // flexDirection: screenWidth > 768 ? "row" : "column",
+      // flexDirection: isScreen ? "row" : "column",
     },
     activeButton: {
-      padding: "10px 20px",
+      padding: isMobile? "1px 3px" : "10px 20px",
       backgroundColor: "#CEDF9F",
       border: "none",
-      borderRadius: "15px",
-      marginRight: screenWidth > 768 ? "10px" : "0",
-      marginBottom: screenWidth > 768 ? "0" : "0px",
-      width: screenWidth > 768 ? "auto" : "100%",
+      borderRadius: isMobile ? "22px":"15px",
+      marginRight: isScreen ? "10px" : "0",
+      marginRight: isMobile ? "5px" : "0px",
+      marginBottom: isScreen ? "0" : "0px",
+      marginBottom: isMobile ? "0" : "0px",
+      width: isScreen ? "auto" : "100%",
       fontWeight: "bold",
       cursor: "pointer",
     },
+
     inactiveButton: {
-      padding: "10px 20px",
+      padding: isMobile? "1px 3px" : "10px 20px",
       backgroundColor: "transparent",
       color: "#CEDF9F",
-      borderRadius: "20px",
-      width: screenWidth > 768 ? "auto" : "100%",
+      borderRadius: isMobile ? "22px":"15px",
+      marginRight: isScreen ? "10px" : "0",
+      marginRight: isMobile ? "5px" : "0px",
+      marginBottom: isScreen ? "0" : "0px",
+      marginBottom: isMobile ? "0" : "0px",
+      width: isScreen ? "auto" : "100%",
       cursor: "pointer",
     },
     headerIcons: {
       display: "flex",
       alignItems: "center",
-      // justifyContent: screenWidth > 768 ? "flex-start" : "space-around",
-      // width: screenWidth > 768 ? "auto" : "100%",
     },
-    headerIcon: {
-      fontSize: screenWidth > 768 ? "24px" : "20px",
+    headerIcon1: {
+      fontSize: isScreen ? "24px" : "20px",
       color: "#CEDF9F",
-      marginRight: screenWidth > 768 ? "20px" : "10px",
+      marginRight: isScreen ? "0px" : "10px",
+      marginRight: isMobile ? "0px" : "10px",
+      cursor: "pointer",
+      display: isMobile ? "none" : "",
+    },
+    headerIcon2: {
+      fontSize: isScreen ? "24px" : "20px",
+      color: "#CEDF9F",
+      marginRight: isScreen ? "15px" : "10px",
+      marginRight: isMobile ? "15px" : "10px",
+      cursor: "pointer",
+    },
+    headerIcon3: {
+      fontSize: isScreen ? "24px" : "20px",
+      color: "#CEDF9F",
+      marginRight: isScreen ? "0px" : "10px",
+      marginRight: isMobile ? "0px" : "10px",
       cursor: "pointer",
     },
     userAvatar: {
-      width: screenWidth > 768 ? "40px" : "30px",
-      height: screenWidth > 768 ? "40px" : "30px",
+      width: isScreen ? "40px" : "30px",
+      height: isScreen ? "40px" : "30px",
       borderRadius: "50%",
       cursor: "pointer",
+      display: isMobile ? "none" : "",
     },
   };
 
@@ -117,10 +160,10 @@ const Header = () => {
         </Link>
       </div>
       <div style={styles.headerIcons}>
-        <span style={styles.headerIcon}>🔍</span>
-        <span style={styles.headerIcon}>🔔</span>
+        <span style={styles.headerIcon2}>🔍</span>
+        <span style={styles.headerIcon3}>🔔</span>
         <Link href="/AddToCart">
-          <button style={styles.headerIcon} aria-label="Add to Cart">
+          <button style={styles.headerIcon1} aria-label="Add to Cart">
             🛒
           </button>
         </Link>

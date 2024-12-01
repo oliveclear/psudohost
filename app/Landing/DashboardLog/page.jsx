@@ -12,6 +12,7 @@ import {
   Title,
 } from "chart.js";
 import Link from "next/link";
+import DiscussionRoom from "../../Discussion/page";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title);
 
@@ -79,11 +80,12 @@ const DashboardLog = () => {
     dashboardContainer: {
       marginTop: "88px",
       marginLeft: "250px", // Removed margin left for Screen
-      height: "100vh",
+      height: "110vh",
       backgroundColor: "#1C1C1C",
       // width: "100%", // Set to full width for responsiveness
       marginLeft: isScreen ? "0px" : "250px",
       marginTop: isScreen ? "0px" : "88px",
+      // overflow: "hidden",
     },
     cardsContainer: {
       padding: "16px",
@@ -342,12 +344,33 @@ const DashboardLog = () => {
             </div>
           </div>
         </div>
+
+        <div
+          style={{
+            margin: "20px",
+            padding: "20px",
+            borderRadius: "28px",
+            background: "#171717",
+            height: "44vh",
+            zIndex: "-1",
+            boxShadow: "inset -20px -16px 12.7px 0px rgba(16, 16, 16, 0.48)",
+          }}
+        >
+          <div
+            style={{
+              marginTop: "-80px",
+              borderRadius: "50px",
+              zIndex: "0",
+              height: "0vh",
+              position: "relative", // Ensure z-index works by setting position
+            }}
+          >
+            <DiscussionRoom />
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default DashboardLog;
-
-//margin-top: 88px;
-//margin-left: 250px;
