@@ -1,5 +1,12 @@
+'use client'
 import React, { useState, useEffect } from "react";
+import Image from 'next/image';
 import Link from "next/link";
+import searchIcon from '../../public/icons kit/search.png';
+import notiffsIcon from '../../public/icons kit/notiffs.png'
+
+<Image src={searchIcon} alt="Search Icon" width={24} height={24} />
+
 
 const Header = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -122,14 +129,15 @@ const Header = () => {
       display: isMobile ? "none" : "",
     },
     headerIcon2: {
-      fontSize: isScreen ? "24px" : "20px",
-      color: "#CEDF9F",
-      marginRight: isScreen ? "15px" : "10px",
+      width: isScreen ? "24px" : "20px", // Adjust width instead of fontSize for images
+      height: isScreen ? "24px" : "20px", // Ensure the image is square
       marginRight: isMobile ? "15px" : "10px",
       cursor: "pointer",
     },
     headerIcon3: {
-      fontSize: isScreen ? "24px" : "20px",
+      fontSize: isScreen ? "28px" : "20px",
+      height: isMobile ? "31px" : "",
+      width: isMobile ? "28px" : "",
       color: "#CEDF9F",
       marginRight: isScreen ? "0px" : "10px",
       marginRight: isMobile ? "0px" : "10px",
@@ -160,8 +168,9 @@ const Header = () => {
         </Link>
       </div>
       <div style={styles.headerIcons}>
-        <span style={styles.headerIcon2}>🔍</span>
-        <span style={styles.headerIcon3}>🔔</span>
+        {/* <span style={styles.headerIcon2}>🔍</span> */}
+        <Image src={searchIcon} alt="Search Icon" style={styles.headerIcon2}/>
+        <Image src={notiffsIcon} alt="Notif Icon" style={styles.headerIcon3}/>
         <Link href="/AddToCart">
           <button style={styles.headerIcon1} aria-label="Add to Cart">
             🛒

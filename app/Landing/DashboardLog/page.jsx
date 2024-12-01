@@ -80,7 +80,7 @@ const DashboardLog = () => {
     dashboardContainer: {
       marginTop: "88px",
       marginLeft: "250px", // Removed margin left for Screen
-      height: "110vh",
+      height: "145vh",
       backgroundColor: "#1C1C1C",
       // width: "100%", // Set to full width for responsiveness
       marginLeft: isScreen ? "0px" : "250px",
@@ -150,7 +150,13 @@ const DashboardLog = () => {
 
   return (
     <div style={styles.dashboardContainer}>
-      <div style={{ width: "100%", marginTop: "84px" }}>
+      <img
+        src="/icons kit/oliveclearmainpage.png"
+        alt="Olive Clear Main Page"
+        style={{ marginTop: "84px", width: "100%", borderRadius: "8px" }}
+      />
+
+      <div style={{ width: "100%" }}>
         {/* Cards Section */}
         <div style={styles.cardsContainer}>
           <Link href="/FaceScan">
@@ -351,7 +357,7 @@ const DashboardLog = () => {
             padding: "20px",
             borderRadius: "28px",
             background: "#171717",
-            height: "44vh",
+            height: "55vh",
             zIndex: "-1",
             boxShadow: "inset -20px -16px 12.7px 0px rgba(16, 16, 16, 0.48)",
           }}
