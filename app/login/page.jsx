@@ -12,6 +12,22 @@ const LoginPage = () => {
 
   const [isScreen, setIsScreen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isFobile, setIsFobile] = useState(false);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsScreen(window.innerWidth <= 768); // Adjust for Screen screen width
+  //     setIsMobile(window.innerWidth <= 430);
+  //     setIsFobile(window.innerWidth <= 430);
+  //   };
+
+  //   // Initial check and adding a resize listener
+  //   handleResize();
+  //   window.addEventListener("resize", handleResize);
+
+  //   // Cleanup listener on component unmount
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -94,10 +110,14 @@ const LoginPage = () => {
     loginBox: {
       // width: isMobile ? "300px": "672px",
       height: "669px",
+      // height: "669px",
       borderRadius: "85px",
       border: "12px solid rgba(227, 227, 227, 0.40)",
       background: "rgba(255, 255, 255, 0.20)",
       backdropFilter: "blur(5.85px)",
+      border: isScreen ? "" : "12px solid rgba(227, 227, 227, 0.40)",
+      background: isScreen ? "" : "rgba(255, 255, 255, 0.20)",
+      backdropFilter: isScreen ? "" : "blur(5.85px)",
     },
     loginTitle: {
       color: "#FFF",
