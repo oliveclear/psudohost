@@ -79,7 +79,7 @@ const DashboardLog = () => {
   const styles = {
     dashboardContainer: {
       marginLeft: "250px", // Removed margin left for Screen
-      height: "170vh",
+      height: "150vh",
       backgroundColor: "#1C1C1C",
       marginLeft: isScreen ? "0px" : "250px",
       marginTop: isScreen ? "84px" : "84px",
@@ -165,6 +165,7 @@ const DashboardLog = () => {
           src="/icons kit/oliveclearmainpage.png"
           alt="Olive Clear Main Page"
           style={{
+            padding: "15px",
             marginTop: "84px",
             width: "100%",
             borderRadius: "8px",

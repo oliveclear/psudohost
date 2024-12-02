@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie"; // Import js-cookie
 const token = Cookies.get("token");
@@ -10,6 +10,23 @@ const CameraCapture = () => {
   const [skinTypes, setSkinTypes] = useState([]); // State for skin type percentages
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+
+  const [isScreen, setIsScreen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreen(window.innerWidth <= 768); // Adjust for Screen screen width
+      setIsMobile(window.innerWidth <= 430);
+    };
+
+    // Initial check and adding a resize listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Start the camera
   const startCamera = async () => {
@@ -68,7 +85,7 @@ const CameraCapture = () => {
         {
           method: "POST",
           headers: {
-            "Authorization": `Bearer ${token}`, // Send token in the headers
+            Authorization: `Bearer ${token}`, // Send token in the headers
             // "Content-Type": "application/json",
           },
           credentials: "include",
@@ -107,13 +124,14 @@ const CameraCapture = () => {
         flexDirection: "column",
         justifyContent: "flex-start", // Change to flex-start for top alignment
         alignItems: "center",
-        marginLeft: "250px",
-        minHeight: "100vh", // Set minHeight instead of height
+        marginLeft: isScreen ? "0px":"250px",
+        marginLeft: isMobile ? "0px":"250px",
+        minHeight: isScreen ? "91vh" : "100vh", // Set minHeight instead of height
         backgroundColor: "#121212",
-        marginTop: "88px",
+        marginTop: isScreen ? "84px" : "88px",
         color: "#EAEAEA",
         fontFamily: "Arial, sans-serif",
-        overflowY: "auto", // Allow content to scroll vertically
+        overflowY: "hidden", // Allow content to scroll vertically
       }}
     >
       {/* Disclaimer */}
