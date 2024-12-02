@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie"; 
+import Cookies from "js-cookie";
 
 const LoginPage = () => {
   const [loginField, setLoginField] = useState("");
@@ -9,18 +10,38 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
+  const [isScreen, setIsScreen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreen(window.innerWidth <= 768); // Adjust for Screen screen width
+      setIsMobile(window.innerWidth <= 430);
+    };
+
+    // Initial check and adding a resize listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL_HOST}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ loginField, password }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_HOST}/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ loginField, password }),
+        }
+      );
 
       const result = await response.json();
 
@@ -44,13 +65,121 @@ const LoginPage = () => {
     }
   };
 
+  const styles = {
+    contain: {
+      display: "flex",
+      position: "relative",
+      top: "70px",
+      flexDirection: "column",
+    },
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100vh",
+      backgroundColor: "#222222",
+      color: "#ffffff",
+    },
+    header: {
+      position: "absolute",
+      top: "20px",
+      left: "20px",
+    },
+    logo: {
+      fontSize: "24px",
+      fontWeight: "bold",
+      color: "#ffffff",
+    },
+    loginBox: {
+      // width: isMobile ? "300px": "672px",
+      height: "669px",
+      borderRadius: "85px",
+      border: "12px solid rgba(227, 227, 227, 0.40)",
+      background: "rgba(255, 255, 255, 0.20)",
+      backdropFilter: "blur(5.85px)",
+    },
+    loginTitle: {
+      color: "#FFF",
+      fontSize: "96px",
+      fontWeight: 900,
+      letterSpacing: "-5.76px",
+    },
+    inputContainer: {
+      marginBottom: "20px",
+      position: "relative",
+    },
+    label: {
+      marginLeft: "30px",
+      marginTop: "40px",
+      color: "#FFF",
+      fontSize: "36px",
+      fontWeight: 600,
+      letterSpacing: "-1.44px",
+    },
+    input: {
+      marginLeft: "30px",
+      marginTop: "5px",
+      padding: "10px",
+      borderRadius: "23px",
+      border: "3px solid rgba(255, 255, 255, 0.40)",
+      background: "rgba(255, 255, 255, 0.20)",
+      backdropFilter: "blur(5.85px)",
+      width: "570px",
+      height: "66px",
+    },
+    forgotLink: {
+      position: "relative",
+      left: "250px",
+      // top: "45%",
+      fontSize: "20px",
+      color: "#C3C4A9",
+      textDecoration: "none",
+    },
+    loginButtonDiv: {
+      marginTop: "100px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    loginButton: {
+      padding: "10px 0",
+      borderRadius: "56px",
+      border: "3px solid #CEDF9F",
+      background: "#181818",
+      width: "226px",
+      height: "74px",
+    },
+    error: {
+      color: "red",
+      textAlign: "center",
+      marginBottom: "10px",
+    },
+    signupText: {
+      marginTop: "20px",
+      display: "flex",
+      // flexDirection: "column",
+      fontSize: "14px",
+    },
+    signupLink: {
+      color: "#C3C4A9",
+      textDecoration: "none",
+    },
+  };
+
   return (
     <div style={styles.container}>
       <header style={styles.header}>
         <h1 style={styles.logo}>skincare</h1>
       </header>
       <h2 style={styles.loginTitle}>Login</h2>
-      <div style={styles.loginBox}>
+      <div
+        style={{
+          ...styles.loginBox,
+          width: isMobile ? "300px" : "672px",
+        }}
+      >
         <form style={styles.contain} onSubmit={handleLogin}>
           <div style={styles.inputContainer}>
             <label style={styles.label} htmlFor="username">
@@ -91,7 +220,7 @@ const LoginPage = () => {
             <p style={styles.signupText}>
               If you are not registered{""}
               <a href="/register" style={styles.signupLink}>
-                  Register
+                Register
               </a>
             </p>
           </div>
@@ -99,109 +228,6 @@ const LoginPage = () => {
       </div>
     </div>
   );
-};
-
-const styles = {
-  contain: {
-    display: "flex",
-    position: "relative",
-    top: "70px",
-    flexDirection: "column",
-  },
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-    backgroundColor: "#222222",
-    color: "#ffffff",
-  },
-  header: {
-    position: "absolute",
-    top: "20px",
-    left: "20px",
-  },
-  logo: {
-    fontSize: "24px",
-    fontWeight: "bold",
-    color: "#ffffff",
-  },
-  loginBox: {
-    width: "672px",
-    height: "669px",
-    borderRadius: "85px",
-    border: "12px solid rgba(227, 227, 227, 0.40)",
-    background: "rgba(255, 255, 255, 0.20)",
-    backdropFilter: "blur(5.85px)",
-  },
-  loginTitle: {
-    color: "#FFF",
-    fontSize: "96px",
-    fontWeight: 900,
-    letterSpacing: "-5.76px",
-  },
-  inputContainer: {
-    marginBottom: "20px",
-    position: "relative",
-  },
-  label: {
-    marginLeft: "30px",
-    marginTop: "40px",
-    color: "#FFF",
-    fontSize: "36px",
-    fontWeight: 600,
-    letterSpacing: "-1.44px",
-  },
-  input: {
-    marginLeft: "30px",
-    marginTop: "5px",
-    padding: "10px",
-    borderRadius: "23px",
-    border: "3px solid rgba(255, 255, 255, 0.40)",
-    background: "rgba(255, 255, 255, 0.20)",
-    backdropFilter: "blur(5.85px)",
-    width: "570px",
-    height: "66px",
-  },
-  forgotLink: {
-    position: "relative",
-    left: "250px",
-    // top: "45%",
-    fontSize: "20px",
-    color: "#C3C4A9",
-    textDecoration: "none",
-  },
-  loginButtonDiv: {
-    marginTop: "100px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loginButton: {
-    padding: "10px 0",
-    borderRadius: "56px",
-    border: "3px solid #CEDF9F",
-    background: "#181818",
-    width: "226px",
-    height: "74px",
-  },
-  error: {
-    color: "red",
-    textAlign: "center",
-    marginBottom: "10px",
-  },
-  signupText: {
-    marginTop: "20px",
-    display: "flex",
-    // flexDirection: "column",
-    fontSize: "14px",
-  },
-  signupLink: {
-    color: "#C3C4A9",
-    textDecoration: "none",
-  },
 };
 
 export default LoginPage;

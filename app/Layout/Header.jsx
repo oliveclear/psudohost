@@ -82,7 +82,7 @@ const Header = () => {
       color: "#A1A1A1",
     },
     toggleButtons: {
-      marginLeft: isMobile ? "75px" : "0px",
+      marginLeft: isMobile ? "70px" : "0px",
       display: "flex",
       alignItems: "center",
       borderRadius: "20px",
