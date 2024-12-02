@@ -43,16 +43,16 @@ const Header = () => {
       height: "84px",
       position: "fixed",
       top: "0",
-      left: isMobile ? "40px" : screenWidth > 1200 ? "250px" : isScreen ? "250px" : "140px",
+      left: isMobile ? "40px" : screenWidth > 1200 ? "250px" : isScreen ? "40px" : "140px",
       width:
         isMobile
           ? "91%"
           : screenWidth > 1200
           ? "calc(100% - 250px)"
           : isScreen
-          ? "calc(100% - 250px)"
+          ? "calc(100% - 40px)"
           : screenWidth > 430
-          ? "91%"
+          ? "89%"
           : "82%",
       display: "flex",
       justifyContent: "space-between",
@@ -91,7 +91,7 @@ const Header = () => {
       // flexDirection: isScreen ? "row" : "column",
     },
     activeButton: {
-      padding: isMobile? "1px 3px" : "10px 20px",
+      padding: isMobile? "4px 3px" : "10px 20px",
       backgroundColor: "#CEDF9F",
       border: "none",
       borderRadius: isMobile ? "22px":"15px",
@@ -100,12 +100,12 @@ const Header = () => {
       marginBottom: isScreen ? "0" : "0px",
       marginBottom: isMobile ? "0" : "0px",
       width: isScreen ? "auto" : "100%",
-      fontWeight: "bold",
+      fontWeight:isMobile ? "" : "bold",
       cursor: "pointer",
     },
 
     inactiveButton: {
-      padding: isMobile? "1px 3px" : "10px 20px",
+      padding: isMobile? "4px 3px" : "10px 20px",
       backgroundColor: "transparent",
       color: "#CEDF9F",
       borderRadius: isMobile ? "22px":"15px",

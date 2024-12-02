@@ -78,14 +78,11 @@ const DashboardLog = () => {
 
   const styles = {
     dashboardContainer: {
-      marginTop: "88px",
       marginLeft: "250px", // Removed margin left for Screen
-      height: "145vh",
+      height: "170vh",
       backgroundColor: "#1C1C1C",
-      // width: "100%", // Set to full width for responsiveness
       marginLeft: isScreen ? "0px" : "250px",
-      marginTop: isScreen ? "0px" : "88px",
-      // overflow: "hidden",
+      marginTop: isScreen ? "84px" : "84px",
     },
     cardsContainer: {
       padding: "16px",
@@ -146,15 +143,34 @@ const DashboardLog = () => {
       letterSpacing: "-2.4px",
       transition: "color 0.3s ease, text-decoration 0.3s ease",
     },
+    discussionContainer: {
+      margin: "20px",
+      padding: "20px",
+      borderRadius: "28px",
+      background: "#171717",
+      height: "55vh",
+      boxShadow: "inset -20px -16px 12.7px 0px rgba(16, 16, 16, 0.48)",
+      position: "relative",
+    },
+    discussionWrapper: {
+      marginLeft: "0px", // Override the margin for DiscussionRoom
+      transform: "translateX(-250px)", // Adjust dynamically to cancel the 250px margin
+    },
   };
 
   return (
     <div style={styles.dashboardContainer}>
-      <img
-        src="/icons kit/oliveclearmainpage.png"
-        alt="Olive Clear Main Page"
-        style={{ marginTop: "84px", width: "100%", borderRadius: "8px" }}
-      />
+      {isMobile && (
+        <img
+          src="/icons kit/oliveclearmainpage.png"
+          alt="Olive Clear Main Page"
+          style={{
+            marginTop: "84px",
+            width: "100%",
+            borderRadius: "8px",
+          }}
+        />
+      )}
 
       <div style={{ width: "100%" }}>
         {/* Cards Section */}
@@ -358,22 +374,28 @@ const DashboardLog = () => {
             borderRadius: "28px",
             background: "#171717",
             height: "55vh",
-            zIndex: "-1",
             boxShadow: "inset -20px -16px 12.7px 0px rgba(16, 16, 16, 0.48)",
+            // zIndex: "0",
+            // position: "relative",
           }}
         >
           <div
             style={{
               marginTop: "-80px",
               borderRadius: "50px",
-              zIndex: "0",
+              // zIndex: "0",
               height: "0vh",
-              position: "relative", // Ensure z-index works by setting position
+              // position: "relative", // Ensure z-index works by setting position
             }}
           >
             <DiscussionRoom />
           </div>
         </div>
+        {/* <div style={styles.discussionContainer}>
+          <div style={styles.discussionWrapper}>
+            <DiscussionRoom />
+          </div>
+        </div> */}
       </div>
     </div>
   );

@@ -55,10 +55,10 @@ const DiscussionRoom = () => {
     <div
       style={{
         ...styles.container,
-        zIndex: isScreen ? "0" : "-1",
-        // height: isScreen ? "0" : "100vh",
+        // position: "relative",
+        // zIndex: isScreen ? "0" : "-1",
+        // zIndex: isMobile ? "-2" : "-1",
         marginLeft: isMobile ? "0px" : "250px",
-        // marginTop: isMobile ? "0px" : "88px",
       }}
     >
       {/* Header Section */}
@@ -102,7 +102,7 @@ const DiscussionRoom = () => {
 
 const styles = {
   container: {
-    position: "relative",
+    // position: "relative",
     backgroundColor: "#1a1a1a",
     color: "#ffffff",
     padding: "20px",
@@ -111,6 +111,7 @@ const styles = {
     flexDirection: "column",
     marginTop: "84px",
     marginLeft: "250px",
+    // zIndex: "-2",
   },
   header: {
     display: "flex",
